@@ -1,0 +1,244 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Band Profile</title>
+    <link rel="stylesheet" href="../Style/VStyle.css">
+</head>
+<body>
+    <div class="container">
+        <div class="creation-date">
+            <p>Creation Date: {{ .CreationDate }}</p>
+            <p>First Album: {{ .FirstAlbum }}</p>
+        </div>
+        <div class="Image">
+            <img class="BandImage" src="{{ .Image }}" alt="Band Image">
+        </div>
+        <div class="text-container">
+            <h1 class="Name">{{ .Name }}</h1>
+        </div>
+    </div>
+
+    <div class="container">
+        <h2>Members:</h2>
+        <div class="list-container">
+            <ul>
+                {{ range .Members }}
+                <li>{{ . }}</li>
+                {{ end }}
+            </ul>
+        </div>
+    </div>
+
+    <div class="container">
+        <h2>Locations and Dates:</h2>
+        <div class="list-container">
+            {{ range $location, $dates := .RelationForArtist }}
+                <div class="list-item">
+                    <h3>{{ $location }}</h3>
+                    <ul>
+                        {{ range $dates }}
+                        <li>{{ . }}</li>
+                        {{ end }}
+                    </ul>
+                </div>
+            {{ end }}
+        </div>
+    </div>
+
+    <div class="container">
+        <h2>Map Locations:</h2>
+        <div class="map-container">
+            <div class="map-container" id="map-container">
+                <div id="map"></div>
+            </div>
+            <div id="coordinates" style="display: none;">
+                {{range .Coordinates}}{{.Name}},{{.Lat}},{{.Lng}};{{end}}
+            </div>
+        </div>
+    </div>
+
+    <script>
+        function initMap() {
+            const coordString = document.getElementById("coordinates").innerHTML.trim();
+            const coords = coordString.split(";").filter(Boolean).map(coord => {
+                const [name, lat, lng] = coord.split(",");
+                return { name: name, lat: parseFloat(lat), lng: parseFloat(lng) };
+            });
+
+            if (coords.length === 0) return;
+
+            const mapOptions = {
+                center: { lat: coords[0].lat, lng: coords[0].lng },
+                zoom: 6,
+                disableDefaultUI: true,
+                zoomControl: true,
+                zoomControlOptions: {
+                position: google.maps.ControlPosition.RIGHT_BOTTOM },
+                styles:[
+                    {
+                        "featureType": "all",
+                        "elementType": "geometry",
+                        "stylers": [
+                            {
+                                "color": "#202c3e"
+                            }
+                        ]
+                    },
+                    {
+                        "featureType": "all",
+                        "elementType": "labels.text.fill",
+                        "stylers": [
+                            {
+                                "gamma": 0.01
+                            },
+                            {
+                                "lightness": 20
+                            },
+                            {
+                                "weight": "1.39"
+                            },
+                            {
+                                "color": "#ffffff"
+                            }
+                        ]
+                    },
+                    {
+                        "featureType": "all",
+                        "elementType": "labels.text.stroke",
+                        "stylers": [
+                            {
+                                "weight": "0.96"
+                            },
+                            {
+                                "saturation": "9"
+                            },
+                            {
+                                "visibility": "on"
+                            },
+                            {
+                                "color": "#000000"
+                            }
+                        ]
+                    },
+                    {
+                        "featureType": "all",
+                        "elementType": "labels.icon",
+                        "stylers": [
+                            {
+                                "visibility": "off"
+                            }
+                        ]
+                    },
+                    {
+                        "featureType": "landscape",
+                        "elementType": "geometry",
+                        "stylers": [
+                            {
+                                "lightness": 30
+                            },
+                            {
+                                "saturation": "9"
+                            },
+                            {
+                                "color": "#29446b"
+                            }
+                        ]
+                    },
+                    {
+                        "featureType": "poi",
+                        "elementType": "geometry",
+                        "stylers": [
+                            {
+                                "saturation": 20
+                            }
+                        ]
+                    },
+                    {
+                        "featureType": "poi.park",
+                        "elementType": "geometry",
+                        "stylers": [
+                            {
+                                "lightness": 20
+                            },
+                            {
+                                "saturation": -20
+                            }
+                        ]
+                    },
+                    {
+                        "featureType": "road",
+                        "elementType": "geometry",
+                        "stylers": [
+                            {
+                                "lightness": 10
+                            },
+                            {
+                                "saturation": -30
+                            }
+                        ]
+                    },
+                    {
+                        "featureType": "road",
+                        "elementType": "geometry.fill",
+                        "stylers": [
+                            {
+                                "color": "#193a55"
+                            }
+                        ]
+                    },
+                    {
+                        "featureType": "road",
+                        "elementType": "geometry.stroke",
+                        "stylers": [
+                            {
+                                "saturation": 25
+                            },
+                            {
+                                "lightness": 25
+                            },
+                            {
+                                "weight": "0.01"
+                            }
+                        ]
+                    },
+                    {
+                        "featureType": "water",
+                        "elementType": "all",
+                        "stylers": [
+                            {
+                                "lightness": -20
+                            }
+                        ]
+                    }
+                ]
+            };
+
+            const map = new google.maps.Map(document.getElementById("map"), mapOptions);
+
+            coords.forEach(coord => {
+                const marker = new google.maps.Marker({
+                    position: { lat: coord.lat, lng: coord.lng },
+                    map: map,
+                    title: coord.name
+                });
+
+                const infoWindow = new google.maps.InfoWindow({
+                    content: `<h3>${coord.name}</h3>`
+                });
+
+                marker.addListener("click", () => {
+                    infoWindow.open(map, marker);
+                });
+            });
+        }
+    </script>
+
+    <script
+        src="https://maps.googleapis.com/maps/api/js?key=AIzaSyACt5oDURFW4CJ0iI_cNKOaYJXXf9vu8vU&callback=initMap&libraries=&v=weekly"
+        defer></script>
+
+    <button id="BackButton" onclick="window.location.href = 'http://localhost:1221/artists'">Go to Artists</button>
+</body>
+</html>

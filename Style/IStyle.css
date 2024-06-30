@@ -1,0 +1,236 @@
+body {
+    font-family: 'Arial', sans-serif;
+    background: linear-gradient(to right, gray, lightgray);
+    margin: 0;
+    padding: 0;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    min-height: 100vh;
+}
+
+header {
+    background-color: #333;
+    color: white;
+    width: 100%;
+    padding: 20px 0;
+    text-align: center;
+    font-size: 50px;
+    font-weight: bold;
+}
+
+#searchBar {
+    margin: 20px 0;
+    width: 100%;
+    display: flex;
+    justify-content: center;
+}
+
+#searchBar form {
+    display: flex;
+    width: 80%;
+    max-width: 600px;
+}
+
+#searchBar input[type="text"] {
+    flex: 1;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px 0 0 5px;
+    height: 30px;
+}
+
+.search-button {
+    color: white;
+    border: 2px solid #ffffff;
+    font-size: 15px;
+    transition: box-shadow 0.2s ease-in-out;
+    font-weight: bold;
+    background-color: black;
+    display: inline-block;
+    text-align: center;
+    border: none;
+    cursor: pointer;
+    width: 100px;
+    height: 50px;
+    margin-bottom: 10px;
+    border-radius: 0 5px 5px 0;
+}
+
+.search-button:hover {
+    background: radial-gradient(black, rgba(6, 6, 6, 0.2) 80%);
+    box-shadow: 0 0 10px white;
+}
+
+.search-icon {
+    margin-right: 12px;
+}
+
+.container {
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+    padding: 20px;
+}
+
+.card {
+    background-color: #333;
+    width: 270px;
+    margin: 10px;
+    border-radius: 15px;
+    transition: all 0.3s ease;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    box-shadow: 5px 15px 7px rgba(0, 0, 0, 0.3);
+}
+
+.card-image {
+    width: 100%;
+    width: 200px;
+    height: 200px;
+    margin-top: 15px;
+    margin-bottom: 15px;
+    border-radius: 15px 15px 15px 15px;
+    background-size: cover;
+    background-position: center;
+}
+
+.card h2 {
+    margin: 10px 0;
+    font-size: 1.2em;
+    color: white;
+}
+
+.card a {
+    background: linear-gradient(to right, gray, lightgray);
+    color: rgb(0, 102, 97);
+    font-weight: bold;
+    padding: 15px 20px;
+    display: block;
+    text-align: center;
+    margin: 20px 30px;
+    text-decoration: none;
+    border-radius: 50px;
+    transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+.card:hover {
+    background-color: #30353b;
+    cursor: pointer;
+    transform: scale(1.07);
+}
+
+.card a:hover {
+    background-color: #eeeeee;
+    color: black;
+}
+
+footer {
+    background-color: #333;
+    color: #fff;
+    width: 100%;
+    padding: 10px 0;
+    text-align: center;
+    font-size: 16px;
+    position: relative;
+    bottom: 0;
+}
+
+.filters {
+    position: fixed;
+    right: -500px;
+    top: 0;
+    width: 300px;
+    height: 100%;
+    overflow-y: scroll;
+    background-color: #333;
+    padding: 50px 20px;
+    box-shadow: -2px 0 10px rgba(0, 0, 0, 0.5);
+    transition: right 0.3s ease;
+    z-index: 10;
+    color: #eeeeee;
+}
+
+.filters.active {
+    right: 0;
+}
+
+.checkbox {
+    margin: -5px 0;
+    width: 120px;
+    height: 40px;
+    display: flex;
+    justify-content: center;
+    position: flex;
+    cursor: pointer;
+    z-index: 11;
+    font-size: 15px;
+    transition: box-shadow 0.2s ease-in-out;
+    background-color: black;
+    border-radius: 10px 10px 10px 10px;
+}
+
+.checkbox:hover {
+    background: radial-gradient(black, rgba(6, 6, 6, 0.2) 80%);
+    box-shadow: 0 0 10px white;
+}
+
+.filters h3 {
+    color: white;
+    margin-bottom: 20px;
+    font-size: 30px;
+    font-weight: bold;
+}
+
+.filters label {
+    display: block;
+    margin: 10px 0;
+    font-size: 1em;
+    cursor: pointer;
+}
+
+.filters input[type="checkbox"] {
+    margin-right: 10px;
+    cursor: pointer;
+}
+
+.filters input[type="number"] {
+    width: 100%;
+    padding: 10px;
+    margin: 10px 0;
+    background-color: #222831;
+    border: none;
+    color: #eeeeee;
+    border-radius: 5px;
+}
+
+.filters input[type="submit"] {
+    background-color: rgb(0, 102, 97);
+    padding: 10px 20px;
+    border: none;
+    border-radius: 20px;
+    cursor: pointer;
+    transition: background-color 0.3s ease, color 0.3s ease;
+    margin-top: 20px;
+    width: 100%;
+    color: black;
+    font-size: 20px;
+    font-weight: bold;
+}
+
+.filters input[type="submit"]:hover {
+    background-color: #eeeeee;
+    color: black;
+    
+}
+
+.filters input[type="range"]:hover {
+    cursor: pointer;
+}
+
+
+
+
+
