@@ -90,6 +90,7 @@ func SearchHandler(w http.ResponseWriter, r *http.Request) {
 		Artists:            results,
 		SearchLocations:    Flocation,
 		SearchCreationDate: Fcreation,
+		NumberOfMember:     [8]string{"1", "2", "3", "4", "5", "6", "7", "8"},
 		SearchFirstAlbum:   Falbum,
 	}
 
