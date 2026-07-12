@@ -82,3 +82,7 @@ secret.*
 # Private keys and certificates
 # Cloud credentials
 # Application configuration containing secrets
+
+.env
+.env.*
+!.env.example

@@ -1,6 +1,7 @@
 package groupieGeo
 
 import (
+	"os"
 	"encoding/json"
 	"fmt"
 	"net/url"
@@ -20,7 +21,7 @@ type GeocodingResponse struct {
 }
 
 func GetCords(location string) (float64, float64, error) {
-	apiKey := "AIzaSyACt5oDURFW4CJ0iI_cNKOaYJXXf9vu8vU"
+	apiKey := os.Getenv("GOOGLE_MAPS_API_KEY")
 
 	location = strings.ReplaceAll(location, "-", ", ")
 	location = strings.ReplaceAll(location, "_", " ")
